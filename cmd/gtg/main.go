@@ -52,6 +52,7 @@ const (
 	responseJsonTagSuffix          = "response-json-tag"
 	responseBodySuffix             = "response-body"
 	responseHeaderSuffix           = "response-header"
+	responseFileSuffix             = "response-file"
 	responseStatusSuffix           = "response-status"
 	swaggerDescriptionSuffix       = "description"
 	swaggerServersSuffix           = "servers"
@@ -143,7 +144,8 @@ func main() {
 			response.NewContentType(httpServer, responseContentTypeSuffix,
 				response.NewEncodingType(httpServer, responseContentEncodingSuffix,
 					response.NewJsonTag(httpServer, responseJsonTagSuffix,
-						response.NewBody(httpServer, responseBodySuffix, tagsParser))))))
+						response.NewFile(httpServer, responseFileSuffix,
+							response.NewBody(httpServer, responseBodySuffix, tagsParser)))))))
 	tagsParser = log.NewLogIgnore(logService, ignoreSuffix, tagsParser)
 	swaggerMethodTagParser := swagger2.NewVersion(swagger, swaggerVersionSuffix,
 		swagger2.NewTitle(swagger, swaggerTitleSuffix,
@@ -222,6 +224,9 @@ func main() {
 	}})
 	t.Funcs(template.FuncMap{"isMapType": func(s string) bool {
 		return len(s) > 3 && s[0] == 'm' && s[1] == 'a' && s[2] == 'p'
+	}})
+	t.Funcs(template.FuncMap{"isError": func(t types.Type) bool {
+		return strings.EqualFold(t.String(), "error")
 	}})
 	t.Funcs(template.FuncMap{"notin": func(s []string, f string) bool {
 		for _, v := range s {

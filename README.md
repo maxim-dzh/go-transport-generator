@@ -90,6 +90,16 @@ for example `utf-8`
 
 for example `nothing TheNothing` 
 
+**http-server-response-file** Allows you to return a file as a set of bytes
+
+**swagger-summary** Method summary for a swagger
+
+for example `Return list of items`
+
+**swagger-description** Method description for a swagger
+
+for example `size - set page size for pagination, offset - set offset for pagination`
+
 ### Generation
 Build binary and put it into binary path.
 ```
@@ -105,4 +115,9 @@ Run walks all folders from `--in` and find all service interfaces. Very usefull 
 Swagger generation
 ```
 gtg --in="./example" --desc="service description" --title="some title for service" --version="v0.0.10" --servers="http://some.url = some url description\r\nhttp://another.url = another url description"
+```
+
+### Docker running example
+```
+docker run --rm -v $(pwd):/app -w /app/  frankegoesdown/gtg:v0.1.1 gtg --in example/service/
 ```
