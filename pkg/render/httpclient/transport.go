@@ -39,6 +39,7 @@ import (
 	{{$responseHeaderPlaceholders := $ct.ResponseHeaders}}
 	{{$responseStatus := $ct.ResponseStatus}}
 	{{$responseContentType := $ct.ResponseContentType}}
+	{{$responseFile := $ct.ResponseFile}}
 	{{$responseBody := $ct.ResponseBody}}
 	{{$responseBodyField := $ct.ResponseBodyField}}
 	{{$responseBodyType := index $responseBody $ct.ResponseBodyField}}
@@ -130,6 +131,9 @@ import (
 		{{end}}
 		{{range $to, $from := $responseHeaderPlaceholders}}
 			{{$from}} = ptr(r.Header.Peek("{{$to}}"))
+		{{end}}
+		{{if $responseFile}}
+			{{$responseFile}} = r.Body()
 		{{end}}
 		return
 	}
