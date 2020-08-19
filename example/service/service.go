@@ -82,4 +82,11 @@ type SomeService interface {
 	// @gtg http-server-response-status http.StatusOK
 	// @gtg http-server-response-file data fileName
 	GetFile(ctx context.Context) (data []byte, fileName string, err error)
+	// @gtg http-server-method GET
+	// @gtg http-server-uri-path /api/v1/file/short
+	// @gtg http-server-response-header Content-Type text/plain
+	// @gtg http-server-response-status http.StatusOK
+	// @gtg http-server-response-file data
+	// @gtg http-server-response-content-encoding utf-8
+	GetFileWithoutName(ctx context.Context) (data []byte, err error)
 }
